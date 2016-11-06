@@ -20,7 +20,7 @@ pip install cloudflare
 ## Configuration
 
 The following scripts can be edited to provide configuration:
- * [ignorecommands/dynamic-host](ignorecommands/dynamic-host)
+ * [src/ignorecommands/dynamic-host](src/ignorecommands/dynamic-host)
 
 If using the `cf-action` scripts, the api credentials can be added to your `action.d/cloudflare.local` file (see examples).
 
