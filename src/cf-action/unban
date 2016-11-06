@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+""" Unban an IP address with Fail2Ban using the Cloudflare v4 API
+    Usage: ./unban <cf_email> <cf_token> <ip>
+"""
+
+import sys
+import CloudFlare
+import CloudFlare.exceptions
+
+def main(argv):
+    cf_email = argv[1]
+    cf_token = argv[2]
+    unban_ip = argv[3]
+
+    cf = CloudFlare.CloudFlare(email=cf_email, token=cf_token)
+
+    params = {"mode": "block", "configuration_target": "ip", "configuration_value": unban_ip}
+
+    try:
+        rule = cf.user.firewall.access_rules.rules.get(params=params)[0]
+        cf.user.firewall.access_rules.rules.delete(rule["id"])
+    except CloudFlare.exceptions.CloudFlareAPIError as e:
+        # Catch the exception and pass, to avoid fail2ban logging credentials
+        pass
+
+if __name__ == "__main__":
+    exit(main(sys.argv))

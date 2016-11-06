@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# A simple script to tell Fail2Ban to ignore a dynamic host
+
+HOSTS="example1.com example2.com"
+
+# Loop over hosts
+for host in $HOSTS ; do
+  DNS_IPS=$(host $host | cut -f4 -d' ')   
+  for dnsIP in $DNS_IPS ; do
+    if [ "$dnsIP" == "$1" ] ; then
+		  # IP address was found
+      exit 0
+    fi
+  done
+done
+
+# IP address was not found
+exit 1

@@ -1,0 +1,4 @@
+[DEFAULT]
+
+# The filter.d/ignorecommands/dynamic-host is symlinked to the src/ignorecommands/dynamic-host file
+ignorecommand = %(ignorecommands_dir)/dynamic-host <ip>
